@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{session["first_name"]}}'s Jokes</title>
+</head>
+<body>
+    <h1>Hello, {{session["first_name"]}}</h1>
+    <a href="/edit">Edit Account</a> |
+    <a href="/logout">Logout</a>
+    <h2>Add a Joke</h2>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color:red">{{message}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form action="/insertjoke" method="post">
+        Comedian<br>
+        <input type="text" name="comedian"><br><br>
+        Joke<br>
+        <input type="text" name="joke"><br><br>
+        <input type="submit" value="Submit Joke">
+    </form>
+    <h2>Submitted Jokes</h2>
+    <table width="800" border="1">
+        <tr>
+            <th>Comedian</th>
+            <th>Joke</th>
+            <th>Posted By</th>
+        </tr>
+        {% for uj in users_jokes %}
+        <tr>
+            <td>{{uj.joke.comedian}}</td>
+            <td>
+                {{uj.joke.joke}}<br>
+                {% if uj.id == session["user_id"] %}
+                    <a href="/delete/{{uj.joke.id}}">Delete</a>
+                {% endif %}
+            </td>
+            <td><a href="/user/{{uj.id}}">{{uj.first_name}}</a></td>
+        </tr> 
+        {% endfor %}
+    </table>
+</body>
+</html>

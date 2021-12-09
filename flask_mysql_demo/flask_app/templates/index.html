@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register/Login - Joke Mill</title>
+    <style>
+        .forms{
+            width:450px;
+            display: flex;
+            justify-content: space-between;
+            margin-left:20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="forms">
+    <div>
+    <h2>Register</h2>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color:red">{{message}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}    
+    
+    <form action="/register" method="POST">
+        First Name<br>
+        <input type="text" name="first_name"><br><br>
+        Last Name<br>
+        <input type="text" name="last_name"><br><br>
+        Email<br>
+        <input type="text" name="email"><br><br>
+        Password<br>
+        <input type="password" name="password"><br><br>
+        Confirm Password<br>
+        <input type="password" name="confirm_password"><br><br>
+        <input type="submit" value="Register">
+    </form>
+    </div>
+    <div>
+    <h2>Login</h2>
+    <form action="/login" method="POST">
+        Email<br>
+        <input type="text" name="email"><br><br>
+        Password<br>
+        <input type="password" name="password"><br><br>
+        <input type="submit" value="Login">
+    </form>
+    </div>
+    </div>    
+</body>
+</html>
